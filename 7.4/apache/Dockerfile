@@ -7,10 +7,12 @@ ENV PHP_EXT_XDEBUG_VERSION="2.9.8"
 RUN build_packages="libpng-dev libfreetype6-dev libjpeg62-turbo-dev libxml2-dev libxslt1-dev libicu-dev libssl-dev libzip-dev libonig-dev" \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $build_packages \
     && yes "" | pecl install apcu-$PHP_EXT_APCU_VERSION && docker-php-ext-enable apcu \
+    && docker-php-ext-install bcmath \
     && docker-php-ext-install ftp \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd \
     && docker-php-ext-install mbstring \
+    && docker-php-ext-install mysqli \
     && echo "no" | pecl -q install redis-$PHP_EXT_REDIS_VERSION && docker-php-ext-enable redis \
     && docker-php-ext-install pcntl \
     && docker-php-ext-install pdo_mysql \
