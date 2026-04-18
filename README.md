@@ -1,8 +1,16 @@
+# OpenMage Docker
+
 This is a collection of Docker images for running [OpenMage LTS](https://github.com/OpenMage/magento-lts).
 The images are published only to [GitHub Container Registry](https://github.com/colinmollenhour/docker-openmage/pkgs/container/docker-openmage).
 
-# Supported tags and respective `Dockerfile` links
+## Supported tags and respective `Dockerfile` links
 
+- [`8.4-apache` (*8.4/apache/Dockerfile*)](https://github.com/colinmollenhour/docker-openmage/blob/master/8.4/apache/Dockerfile)
+- [`8.4-cli` (*8.4/cli/Dockerfile*)](https://github.com/colinmollenhour/docker-openmage/blob/master/8.4/cli/Dockerfile)
+- [`8.4-fpm` (*8.4/fpm/Dockerfile*)](https://github.com/colinmollenhour/docker-openmage/blob/master/8.4/fpm/Dockerfile)
+- [`8.3-apache` (*8.3/apache/Dockerfile*)](https://github.com/colinmollenhour/docker-openmage/blob/master/8.3/apache/Dockerfile)
+- [`8.3-cli` (*8.3/cli/Dockerfile*)](https://github.com/colinmollenhour/docker-openmage/blob/master/8.3/cli/Dockerfile)
+- [`8.3-fpm` (*8.3/fpm/Dockerfile*)](https://github.com/colinmollenhour/docker-openmage/blob/master/8.3/fpm/Dockerfile)
 - [`8.2-apache` (*8.2/apache/Dockerfile*)](https://github.com/colinmollenhour/docker-openmage/blob/master/8.2/apache/Dockerfile)
 - [`8.2-cli` (*8.2/cli/Dockerfile*)](https://github.com/colinmollenhour/docker-openmage/blob/master/8.2/cli/Dockerfile)
 - [`8.2-fpm` (*8.2/fpm/Dockerfile*)](https://github.com/colinmollenhour/docker-openmage/blob/master/8.2/fpm/Dockerfile)
@@ -10,12 +18,11 @@ The images are published only to [GitHub Container Registry](https://github.com/
 - [`7.4-cli` (*7.4/cli/Dockerfile*)](https://github.com/colinmollenhour/docker-openmage/blob/master/7.4/cli/Dockerfile)
 - [`7.4-fpm` (*7.4/fpm/Dockerfile*)](https://github.com/colinmollenhour/docker-openmage/blob/master/7.4/fpm/Dockerfile)
 
-
-# Usage
+## Usage
 
 See [OpenMage dev/openmage/docker-compose.yml](https://github.com/OpenMage/magento-lts/blob/main/dev/openmage/docker-compose.yml) for a sample configuration.
 
-# Options
+## Options
 
 ## Cron
 
@@ -80,11 +87,11 @@ All of the installed tools run in the working directory of the container, so don
 
 Some of the commands use additional environment variables for configuration:
 
- - `AWS_ACCESS_KEY_ID` _(magedbm, magemm)_ Credentials for S3 connections
- - `AWS_SECRET_ACCESS_KEY` _(magedbm, magemm)_ Credentials for S3 connections
- - `AWS_REGION` _(magedbm, magemm)_ S3 region to use
- - `AWS_BUCKET` _(magedbm)_ S3 bucket to use for database backups
- - `AWS_MEDIA_BUCKET` _(magemm)_ S3 bucket to fetch media images from
+- `AWS_ACCESS_KEY_ID` *(magedbm, magemm)* Credentials for S3 connections
+- `AWS_SECRET_ACCESS_KEY` *(magedbm, magemm)* Credentials for S3 connections
+- `AWS_REGION` *(magedbm, magemm)* S3 region to use
+- `AWS_BUCKET` *(magedbm)* S3 bucket to use for database backups
+- `AWS_MEDIA_BUCKET` *(magemm)* S3 bucket to fetch media images from
 
 # Building
 
