@@ -12,19 +12,24 @@ jobs:
 
     strategy:
       matrix:
-        version: [ 7.4, 8.2 ]
-        flavor: [ apache, cli, fpm, frankenphp ]
-        exclude:
-          - version: 7.4
-            flavor: frankenphp
+#        version: [ 7.4, 8.2, 8.3, 8.4 ]
+        version: [ 8.4 ]
+#        flavor: [ apache, cli, fpm, frankenphp ]
+        flavor: [ fpm ]
+#        exclude:
+#          - version: 7.4
+#            flavor: frankenphp
 
     steps:
       -
         name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+      -
+        name: Set up QEMU for arm arch build
+        uses: docker/setup-qemu-action@v3
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
       -
         name: Build image
         uses: docker/build-push-action@v4
@@ -48,7 +53,7 @@ jobs:
           #severity_threshold: CRITICAL
       -
         name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
@@ -59,6 +64,7 @@ jobs:
         with:
           context: ${{ matrix.version }}/${{ matrix.flavor }}
           push: true
-          tags: ghcr.io/colinmollenhour/docker-openmage:${{ matrix.version }}-${{ matrix.flavor }}
-          cache-from: type=registry,ref=colinmollenhour/docker-openmage:${{ matrix.version }}-${{ matrix.flavor }}
+          platforms: linux/amd64,linux/arm64
+          tags: ghcr.io/ajbonner/docker-openmage:${{ matrix.version }}-${{ matrix.flavor }}
+          cache-from: type=registry,ref=ajbonner/docker-openmage:${{ matrix.version }}-${{ matrix.flavor }}
           cache-to: type=inline
