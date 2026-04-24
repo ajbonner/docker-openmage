@@ -4,19 +4,13 @@ ENV PHP_EXT_APCU_VERSION="<?php echo $php_ext_acpu_version ?>"
 ENV PHP_EXT_REDIS_VERSION="<?php echo $php_ext_redis_version ?>"
 ENV PHP_EXT_XDEBUG_VERSION="<?php echo $php_ext_xdebug_version ?>"
 
-<?php $buildPackages = ['libpng-dev', 'libfreetype6-dev', 'libjpeg62-turbo-dev', 'libxml2-dev', 'libxslt1-dev', 'libicu-dev', 'libssl-dev'] ?>
-<?php $installLibZip = version_compare($version, '7.3', '>=') ?>
-<?php $installOniguruma = version_compare($version, '7.4', '>=') ?>
-<?php $gdNeedsDirs = version_compare($version, '7.4', '<') ?>
-<?php if ($installLibZip): $buildPackages[] = 'libzip-dev'; endif ?>
-<?php if ($installOniguruma): $buildPackages[] = 'libonig-dev'; endif ?>
+ENV BUILD_PACKAGES="libpng-dev libfreetype6-dev libjpeg62-turbo-dev libonig-dev libxml2-dev libxslt1-dev libicu-dev libssl-dev libzip-dev"
 
-RUN build_packages="<?php echo implode(' ', $buildPackages) ?>" \
-    && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $build_packages \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $BUILD_PACKAGES \
     && yes "" | pecl install apcu-$PHP_EXT_APCU_VERSION && docker-php-ext-enable apcu \
     && docker-php-ext-install bcmath \
     && docker-php-ext-install ftp \
-    && docker-php-ext-configure gd <?php if ($gdNeedsDirs): ?>--with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/<?php else: ?>--with-freetype --with-jpeg<?php endif; ?> \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install mysqli \
