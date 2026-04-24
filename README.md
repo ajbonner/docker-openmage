@@ -6,7 +6,7 @@ The images are published only to [GitHub Container Registry](https://github.com/
 ## Supported tags and respective `Dockerfile` links
 
 PHP versions `8.2`, `8.3`, `8.4` and `8.5` are supported with `apache`, `cli`, `fpm` and `frankenphp`
-flavours. See `<php-version>/<variant>/Dockerfile` e.g. `8.2/fpm/Dockerfile`.
+flavours. See `<php-version>/<flavour>/Dockerfile` e.g. `8.2/fpm/Dockerfile`.
 
 ## Usage
 
@@ -78,7 +78,7 @@ All installed tools run in the working directory of the container, so don't forg
 The `cli` image uses the same `php.ini` as the web-serving variants, including the default `memory_limit` of `512M`.
 For memory-intensive commands, override this per command with PHP's `-d` option:
 
-    php -d memory_limit=-1 bin/magento <command>
+    docker run --rm -it ghcr.io/colinmollenhour/docker-openmage:8.4-cli php -d memory_limit=-1 /usr/local/bin/n98-magerun.phar
 
 Alternatively, mount or copy a custom PHP configuration file into `/usr/local/etc/php/conf.d/` in the container.
 The custom file name must sort after the image's `/usr/local/etc/php/conf.d/zz-magento.ini` file, for example:
